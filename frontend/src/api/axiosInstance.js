@@ -1,5 +1,6 @@
 // src/api/axiosInstance.js
 import axios from "axios";
+import { clearAuthInfo, getAccessToken } from "../utils/authStorage";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -9,10 +10,9 @@ const axiosInstance = axios.create({
   },
 });
 
-// 요청 보내기 전 처리
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken");
+    const token = getAccessToken();
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -25,7 +25,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// 응답 받은 후 처리
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
@@ -34,8 +33,7 @@ axiosInstance.interceptors.response.use(
     console.error("API 요청 오류:", error);
 
     if (error.response?.status === 401) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("loginUser");
+      clearAuthInfo();
     }
 
     return Promise.reject(error);

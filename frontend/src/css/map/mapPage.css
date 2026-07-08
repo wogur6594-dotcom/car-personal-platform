@@ -1,0 +1,5 @@
+.map-layout { display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start; }
+.place-list { min-width: 0; }
+.map-tab-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.map-tab-row a { flex: 1; text-align: center; padding: 12px; border-radius: 12px; background: #fff; border: 1px solid var(--line); font-weight: 900; }
+@media (max-width: 900px) { .map-layout { grid-template-columns: 1fr; } }

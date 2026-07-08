@@ -1,0 +1,31 @@
+# Eclipse / STS
+.metadata/
+.settings/
+.classpath
+.project
+
+# Node / React
+node_modules/
+dist/
+.env
+.env.local
+
+# Spring Boot / Gradle
+backend/build/
+backend/.gradle/
+backend/bin/
+.gradle/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/

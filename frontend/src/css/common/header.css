@@ -1,0 +1,10 @@
+.header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--line); backdrop-filter: blur(10px); }
+.header-inner { width: min(1180px, calc(100% - 40px)); height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.header-left, .header-right, .nav { display: flex; align-items: center; gap: 18px; }
+.logo { font-size: 22px; font-weight: 900; color: var(--main-blue); }
+.nav a { font-size: 15px; font-weight: 800; color: #374151; padding: 10px 4px; }
+.nav a.active { color: var(--main-blue); }
+.header-text-link { font-weight: 800; color: #374151; }
+.login-btn, .logout-btn { border: 1px solid var(--main-blue); background: var(--main-blue); color: #fff; border-radius: 11px; padding: 10px 15px; font-weight: 900; cursor: pointer; }
+.login-user-name { font-weight: 900; color: #111827; }
+@media (max-width: 900px) { .header-inner { height: auto; padding: 16px 0; align-items: flex-start; flex-direction: column; } .nav { flex-wrap: wrap; } }

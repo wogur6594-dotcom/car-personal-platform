@@ -1,0 +1,4 @@
+.my-car-card { padding: 24px; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
+.my-car-card h3 { margin: 0 0 8px; font-size: 24px; }
+.my-car-card p { margin: 0 0 18px; color: var(--text-sub); }
+.my-car-card strong { font-size: 32px; color: var(--main-blue); }

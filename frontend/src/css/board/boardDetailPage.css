@@ -1,0 +1,6 @@
+.board-detail-box, .comment-box { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: #fff; margin-bottom: 18px; }
+.board-detail-box p { min-height: 160px; margin: 0; line-height: 1.8; }
+.comment-box h2 { margin-top: 0; }
+.comment-item { border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 14px; }
+.comment-item p { margin: 8px 0 0; color: var(--text-sub); }
+.comment-box textarea { width: 100%; border: 1px solid #d7dee8; border-radius: 12px; padding: 14px; margin-bottom: 10px; }

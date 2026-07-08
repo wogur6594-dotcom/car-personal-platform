@@ -1,0 +1,3 @@
+.footer { border-top: 1px solid var(--line); background: #fff; padding: 28px 20px; text-align: center; color: var(--text-sub); }
+.footer div { font-weight: 900; color: var(--text-main); margin-bottom: 6px; }
+.footer p { margin: 0; }

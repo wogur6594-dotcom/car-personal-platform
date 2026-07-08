@@ -1,0 +1,32 @@
+export const boardDummyData = [
+  {
+    id: 1,
+    category: "free",
+    categoryName: "일반게시판",
+    title: "첫 개인프로젝트 게시판 테스트",
+    writer: "정회원",
+    createdDate: "2026-07-03",
+    hit: 24,
+    content: "일반 게시판 더미데이터입니다.",
+  },
+  {
+    id: 2,
+    category: "tips",
+    categoryName: "차량관리팁",
+    title: "엔진오일 교체주기 정리",
+    writer: "관리자",
+    createdDate: "2026-07-02",
+    hit: 38,
+    content: "차량관리팁 게시판 더미데이터입니다.",
+  },
+  {
+    id: 3,
+    category: "questions",
+    categoryName: "질문게시판",
+    title: "타이어 공기압 경고등 질문",
+    writer: "초보운전자",
+    createdDate: "2026-07-01",
+    hit: 15,
+    content: "질문 게시판 더미데이터입니다.",
+  },
+];

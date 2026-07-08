@@ -1,0 +1,3 @@
+.maintenance-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+.maintenance-alert-list { display: grid; gap: 12px; }
+@media (max-width: 900px) { .maintenance-layout { grid-template-columns: 1fr; } }

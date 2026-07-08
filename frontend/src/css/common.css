@@ -1,0 +1,29 @@
+:root {
+  --main-blue: #1677d2;
+  --main-blue-dark: #0d5fb0;
+  --text-main: #1f2937;
+  --text-sub: #6b7280;
+  --line: #e5e7eb;
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --safe: #10b981;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, "Noto Sans KR", sans-serif; background: var(--bg); color: var(--text-main); }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font-family: inherit; }
+.page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 34px 0 70px; }
+.primary-btn, .outline-btn, .text-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+.primary-btn { border: 1px solid var(--main-blue); background: var(--main-blue); color: #fff; }
+.primary-btn:hover { background: var(--main-blue-dark); }
+.outline-btn { border: 1px solid #bfdbfe; background: #fff; color: var(--main-blue); }
+.text-btn { border: 0; color: var(--main-blue); background: transparent; }
+.register-form { display: grid; gap: 16px; padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.register-form label { display: grid; gap: 8px; font-weight: 800; }
+.register-form input, .register-form select, .register-form textarea { width: 100%; border: 1px solid #d7dee8; border-radius: 12px; padding: 13px 14px; font-size: 15px; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.car-card-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 900px) { .car-card-list, .form-grid-2 { grid-template-columns: 1fr; } .page { width: min(100% - 24px, 1180px); } }

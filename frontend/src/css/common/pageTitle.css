@@ -1,0 +1,5 @@
+.page-title-box { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin-bottom: 24px; }
+.page-title-box h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: -0.03em; }
+.page-title-box p { margin: 0; color: var(--text-sub); line-height: 1.6; }
+.page-title-action { flex-shrink: 0; }
+@media (max-width: 700px) { .page-title-box { flex-direction: column; align-items: flex-start; } }

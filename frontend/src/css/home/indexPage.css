@@ -1,0 +1,11 @@
+.hero-section { min-height: 360px; display: flex; align-items: center; padding: 54px; border-radius: 28px; background: linear-gradient(135deg, #eaf4ff, #ffffff); border: 1px solid #dbeafe; margin-bottom: 28px; }
+.hero-label { display: inline-flex; padding: 8px 12px; border-radius: 999px; background: #fff; color: var(--main-blue); font-weight: 900; margin-bottom: 18px; }
+.hero-section h1 { max-width: 650px; margin: 0 0 18px; font-size: 44px; letter-spacing: -0.05em; line-height: 1.18; }
+.hero-section p { max-width: 680px; margin: 0; color: var(--text-sub); line-height: 1.8; }
+.hero-actions { display: flex; gap: 10px; margin-top: 26px; }
+.feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 34px; }
+.feature-card { padding: 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+.feature-card strong { display: block; margin-bottom: 8px; font-size: 18px; }
+.feature-card p { margin: 0; color: var(--text-sub); line-height: 1.5; }
+.home-car-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 900px) { .hero-section { padding: 34px 24px; } .hero-section h1 { font-size: 32px; } .feature-grid, .home-car-list { grid-template-columns: 1fr; } }

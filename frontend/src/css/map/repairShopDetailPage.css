@@ -1,0 +1,7 @@
+.repair-detail-box, .review-box { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 24px; margin-bottom: 18px; }
+.repair-detail-box p { margin-top: 0; color: #374151; line-height: 1.8; }
+.review-summary { font-weight: 900; color: var(--main-blue); }
+.review-box h2 { margin-top: 0; }
+.review-item { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.review-item p { margin: 8px 0 0; color: var(--text-sub); }
+.review-box textarea { width: 100%; border: 1px solid #d7dee8; border-radius: 12px; padding: 14px; margin: 16px 0 10px; }

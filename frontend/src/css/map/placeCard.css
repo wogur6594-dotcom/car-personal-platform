@@ -1,0 +1,7 @@
+.place-link { display: block; }
+.place-card { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 18px; margin-bottom: 12px; }
+.place-card h3 { margin: 0 0 8px; }
+.place-card p { margin: 0 0 8px; color: var(--text-sub); line-height: 1.5; }
+.place-meta { font-size: 14px; }
+.place-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.place-tags span { border-radius: 999px; background: #f3f4f6; padding: 6px 10px; font-size: 12px; font-weight: 800; }

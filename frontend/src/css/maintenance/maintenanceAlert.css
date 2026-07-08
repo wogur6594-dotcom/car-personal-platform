@@ -1,0 +1,6 @@
+.maintenance-alert { padding: 18px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
+.maintenance-alert strong { display: block; margin-bottom: 8px; }
+.maintenance-alert p { margin: 0; color: var(--text-sub); line-height: 1.5; }
+.maintenance-alert.danger { border-color: #fecaca; background: #fff7f7; }
+.maintenance-alert.warning { border-color: #fde68a; background: #fffbeb; }
+.maintenance-alert.safe { border-color: #bbf7d0; background: #f0fdf4; }

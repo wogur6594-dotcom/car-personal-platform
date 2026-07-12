@@ -1,3 +1,6 @@
+import { AUTH_ROLES } from "../utils/authRole";
+
+//common
 import IndexPage from "../pages/home/IndexPage";
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
@@ -10,42 +13,131 @@ import UsedCarDetailPage from "../pages/car/UsedCarDetailPage";
 import UsedCarRegisterPage from "../pages/car/UsedCarRegisterPage";
 import MyUsedCarPage from "../pages/car/MyUsedCarPage";
 
+
+
 import GasStationPage from "../pages/map/GasStationPage";
 import RepairShopPage from "../pages/map/RepairShopPage";
 import RepairShopDetailPage from "../pages/map/RepairShopDetailPage";
+
+//company
+import CompanyDetailPage from "../pages/company/CompanyDetailPage";
 
 import MyCarManagePage from "../pages/maintenance/MyCarManagePage";
 import MyCarRegisterPage from "../pages/maintenance/MyCarRegisterPage";
 import MaintenanceHistoryPage from "../pages/maintenance/MaintenanceHistoryPage";
 
+//board
 import BoardListPage from "../pages/board/BoardListPage";
 import BoardDetailPage from "../pages/board/BoardDetailPage";
 import BoardWritePage from "../pages/board/BoardWritePage";
 import BoardEditPage from "../pages/board/BoardEditPage";
 
+//dealer
+import DealerDetailPage from "../pages/dealer/DealerDetailPage";
+
+//message
+import MessageNewPage from "../pages/message/MessageNewPage";
+
 export const PUBLIC_ROUTES = [
-  { id: 1, path: "/", element: <IndexPage /> },
-  { id: 2, path: "/login", element: <LoginPage /> },
-  { id: 3, path: "/signup", element: <SignUpPage /> },
-  { id: 4, path: "/forbidden", element: <ForbiddenPage /> },
-  { id: 5, path: "/cars", element: <UsedCarListPage /> },
-  { id: 6, path: "/cars/:id", element: <UsedCarDetailPage /> },
-  { id: 7, path: "/gas-stations", element: <GasStationPage /> },
-  { id: 8, path: "/repair-shops", element: <RepairShopPage /> },
-  { id: 9, path: "/repair-shops/:id", element: <RepairShopDetailPage /> },
-  { id: 10, path: "/maintenance", element: <MyCarManagePage /> },
-  { id: 11, path: "/boards", element: <BoardListPage /> },
-  { id: 12, path: "/boards/:id", element: <BoardDetailPage /> },
+  {
+    path: "/",
+    element: <IndexPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/forbidden",
+    element: <ForbiddenPage />,
+  },
+  {
+    path: "/cars",
+    element: <UsedCarListPage />,
+  },
+  {
+    path: "/cars/:carId",
+    element: <UsedCarDetailPage />,
+  },
+  {
+    path: "/dealers/:dealerId",
+    element: <DealerDetailPage />,
+  },
+  {
+    path: "/companies/:companyId",
+    element: <CompanyDetailPage />,
+  },
+  {
+    path: "/gas-stations",
+    element: <GasStationPage />,
+  },
+  {
+    path: "/repair-shops",
+    element: <RepairShopPage />,
+  },
+  {
+    path: "/repair-shops/:placeId",
+    element: <RepairShopDetailPage />,
+  },
+  {
+    path: "/boards",
+    element: <BoardListPage />,
+  },
+  {
+    path: "/messages/new",
+    element: <MessageNewPage />,
+  },
+  {
+    path: "/boards/:boardId",
+    element: <BoardDetailPage />,
+  },
 ];
 
 export const PROTECTED_ROUTES = [
-  { id: 1, path: "/mypage", element: <MyPage /> },
-  { id: 2, path: "/cars/register", element: <UsedCarRegisterPage /> },
-  { id: 3, path: "/my-cars", element: <MyUsedCarPage /> },
-  { id: 4, path: "/maintenance/register", element: <MyCarRegisterPage /> },
-  { id: 5, path: "/maintenance/history", element: <MaintenanceHistoryPage /> },
-  { id: 6, path: "/boards/write", element: <BoardWritePage /> },
-  { id: 7, path: "/boards/:id/edit", element: <BoardEditPage /> },
+  {
+    path: "/mypage",
+    element: <MyPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER, AUTH_ROLES.ADMIN],
+  },
+  {
+    path: "/member/cars",
+    element: <MyUsedCarPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER],
+  },
+  {
+    path: "/cars/register",
+    element: <UsedCarRegisterPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER],
+  },
+  {
+    path: "/maintenance",
+    element: <MyCarManagePage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER],
+  },
+  {
+    path: "/maintenance/register",
+    element: <MyCarRegisterPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER],
+  },
+  {
+    path: "/maintenance/history/:carId",
+    element: <MaintenanceHistoryPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER],
+  },
+  {
+    path: "/boards/write",
+    element: <BoardWritePage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER, AUTH_ROLES.ADMIN],
+  },
+  {
+    path: "/boards/edit/:boardId",
+    element: <BoardEditPage />,
+    roles: [AUTH_ROLES.MEMBER, AUTH_ROLES.DEALER, AUTH_ROLES.ADMIN],
+  },
 ];
 
 export const NOT_FOUND_ROUTE = {

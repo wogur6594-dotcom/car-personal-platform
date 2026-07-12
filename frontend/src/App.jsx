@@ -1,28 +1,45 @@
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
+// src/App.jsx
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/common/Layout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import { PUBLIC_ROUTES, PROTECTED_ROUTES, NOT_FOUND_ROUTE } from "./routes/routeData";
+import {
+  NOT_FOUND_ROUTE,
+  PROTECTED_ROUTES,
+  PUBLIC_ROUTES,
+} from "./routes/routeData";
 
 function App() {
   return (
-    <>
-      <Header />
+    <BrowserRouter>
       <Routes>
-        {PUBLIC_ROUTES.map((route) => (
-          <Route key={route.id} path={route.path} element={route.element} />
-        ))}
-        {PROTECTED_ROUTES.map((route) => (
+        <Route element={<Layout />}>
+          {PUBLIC_ROUTES.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
+          ))}
+
+          {PROTECTED_ROUTES.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                <ProtectedRoute roles={route.roles}>
+                  {route.element}
+                </ProtectedRoute>
+              }
+            />
+          ))}
+
           <Route
-            key={route.id}
-            path={route.path}
-            element={<ProtectedRoute>{route.element}</ProtectedRoute>}
+            path={NOT_FOUND_ROUTE.path}
+            element={NOT_FOUND_ROUTE.element}
           />
-        ))}
-        <Route path={NOT_FOUND_ROUTE.path} element={NOT_FOUND_ROUTE.element} />
+        </Route>
       </Routes>
-      <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 

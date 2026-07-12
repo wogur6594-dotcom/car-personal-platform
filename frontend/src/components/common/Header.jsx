@@ -1,6 +1,7 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "../../css/common/header.css";
+import MessageDropdown from "../message/MessageDropdown";
 
 const menus = [
   { id: 1, name: "중고차거래", path: "/cars" },
@@ -22,7 +23,10 @@ function Header() {
     <header className="header">
       <div className="header-inner">
         <div className="header-left">
-          <Link className="logo" to="/">오토케어</Link>
+          <Link className="logo" to="/">
+            오토케어
+          </Link>
+
           <nav className="nav">
             {menus.map((menu) => (
               <NavLink
@@ -39,14 +43,49 @@ function Header() {
         <div className="header-right">
           {isLogin ? (
             <>
+              <div className="header-user-menu">
+                <Link className="header-icon-link" to="/coupons">
+                  쿠폰함
+                  <span className="header-badge">2</span>
+                </Link>
+
+                <MessageDropdown />
+
+                <Link className="header-icon-link" to="/notifications">
+                  알림
+                  <span className="header-badge">5</span>
+                </Link>
+              </div>
+
               <span className="login-user-name">{loginUser.name}</span>
-              <Link className="header-text-link" to="/mypage">마이페이지</Link>
-              <button type="button" className="logout-btn" onClick={handleLogout}>로그아웃</button>
+              <Link className="header-text-link" to="/mypage">
+                마이페이지
+              </Link>
+              <button type="button" className="logout-btn" onClick={handleLogout}>
+                로그아웃
+              </button>
             </>
           ) : (
             <>
-              <Link className="header-text-link" to="/signup">회원가입</Link>
-              <Link className="login-btn" to="/login">로그인</Link>
+              <Link className="header-icon-link" to="/coupons">
+                쿠폰함
+              </Link>
+
+              <Link className="header-icon-link" to="/messages">
+                메세지함
+              </Link>
+
+              <Link className="header-icon-link" to="/notifications">
+                알림
+              </Link>
+
+              <Link className="header-text-link" to="/signup">
+                회원가입
+              </Link>
+
+              <Link className="login-btn" to="/login">
+                로그인
+              </Link>
             </>
           )}
         </div>

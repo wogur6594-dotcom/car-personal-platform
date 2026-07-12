@@ -2,9 +2,9 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, roles }) {
   const location = useLocation();
-  const { isLogin } = useAuth();
+  const { isLogin, loginUser } = useAuth();
 
   if (!isLogin) {
     return (
@@ -14,6 +14,14 @@ function ProtectedRoute({ children }) {
         state={{ from: location.pathname }}
       />
     );
+  }
+
+  if (roles && roles.length > 0) {
+    const userRole = loginUser?.role;
+
+    if (!roles.includes(userRole)) {
+      return <Navigate to="/forbidden" replace />;
+    }
   }
 
   return children;

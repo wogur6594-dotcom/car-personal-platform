@@ -1,0 +1,59 @@
+.favorite-car-page {
+    padding-bottom: 80px;
+}
+
+.favorite-car-list {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.favorite-car-empty {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    padding: 70px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.favorite-car-empty p {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.favorite-active-btn {
+    border: 1px solid #fda4af;
+    background-color: #fff1f2;
+    color: #e11d48;
+    cursor: pointer;
+}
+
+.favorite-active-btn:hover {
+    background-color: #ffe4e6;
+}
+
+@media (max-width: 1200px) {
+    .favorite-car-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .favorite-car-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .favorite-car-list {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+}

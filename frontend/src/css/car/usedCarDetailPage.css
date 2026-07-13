@@ -212,3 +212,97 @@
         min-height: 280px;
     }
 }
+
+.car-detail-success-message {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    background-color: #f0fdf4;
+    color: #15803d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.car-detail-status.sold {
+    background-color: #64748b;
+}
+
+.car-detail-thumbnail-list {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.car-detail-thumbnail {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background-color: #f8fafc;
+}
+
+.car-detail-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.car-owner-action-box {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+    border: 1px solid #dbeafe;
+    border-radius: 15px;
+    background-color: #f8fbff;
+}
+
+.car-owner-action-box p {
+    margin: 0 0 4px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.car-delete-btn {
+    border: 1px solid #fecaca;
+    background-color: #ffffff;
+    color: #dc2626;
+    cursor: pointer;
+}
+
+.car-delete-btn:hover {
+    background-color: #fff1f2;
+}
+
+.detail-main-btn:disabled {
+    border-color: #cbd5e1;
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+    .car-detail-thumbnail-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+.favorite-active-btn {
+    width: 100%;
+    min-height: 46px;
+    border: 1px solid #fda4af;
+    border-radius: 12px;
+    background-color: #fff1f2;
+    color: #e11d48;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.favorite-active-btn:hover {
+    background-color: #ffe4e6;
+}

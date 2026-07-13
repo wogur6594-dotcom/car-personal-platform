@@ -1,26 +1,26 @@
 import {
+  useEffect,
   useRef,
   useState,
 } from "react";
 import {
+  Link,
+  Navigate,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 import PageTitle from "../../components/common/PageTitle";
-import { getLoginUser } from "../../utils/authStorage";
 import {
-  getCompanyDealerById,
-} from "../../utils/companyDealerStorage";
-import {
-  getCompanyById,
-} from "../../utils/companyStorage";
-import {
-  createCar,
+  getCarById,
+  updateCar,
 } from "../../utils/carStorage";
+import {
+  getLoginUser,
+} from "../../utils/authStorage";
 import "../../css/car/usedCarRegisterPage.css";
 
 const MAX_IMAGE_COUNT = 6;
-const MAX_IMAGE_SIZE =
-  1024 * 1024;
+const MAX_IMAGE_SIZE = 1024 * 1024;
 
 const BRAND_OPTIONS = [
   "현대",
@@ -60,24 +60,32 @@ const REGION_OPTIONS = [
 ];
 
 function readImageFile(file) {
-  return new Promise(
-    (resolve, reject) => {
-      const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
 
-      reader.onload = () =>
-        resolve(reader.result);
+    reader.onload = () => {
+      resolve(reader.result);
+    };
 
-      reader.onerror = reject;
+    reader.onerror = () => {
+      reject(
+        new Error(
+          "이미지를 읽는 중 오류가 발생했습니다."
+        )
+      );
+    };
 
-      reader.readAsDataURL(file);
-    }
-  );
+    reader.readAsDataURL(file);
+  });
 }
 
-function UsedCarRegisterPage() {
+function UsedCarEditPage() {
+  const { carId } = useParams();
   const navigate = useNavigate();
   const imageInputRef = useRef(null);
+
   const loginUser = getLoginUser();
+  const car = getCarById(carId);
 
   const [form, setForm] = useState({
     title: "",
@@ -95,14 +103,92 @@ function UsedCarRegisterPage() {
     description: "",
   });
 
-  const [images, setImages] =
-    useState([]);
-
+  const [images, setImages] = useState([]);
   const [errorMessage, setErrorMessage] =
     useState("");
-
   const [isSubmitting, setIsSubmitting] =
     useState(false);
+
+  const isOwner =
+    loginUser &&
+    car &&
+    Number(loginUser.id) ===
+      Number(car.sellerId) &&
+    loginUser.role === car.sellerType;
+
+  useEffect(() => {
+    if (!car) {
+      return;
+    }
+
+    setForm({
+      title: car.title || "",
+      brand: car.brand || "",
+      model: car.model || "",
+      price: car.price || "",
+      year: car.year || "",
+      mileage: car.mileage || "",
+      region: car.region || "",
+      exteriorColor:
+        car.exteriorColor || "",
+      interiorColor:
+        car.interiorColor || "",
+      transmission:
+        car.transmission || "오토",
+      fuelType:
+        car.fuelType || "가솔린",
+      carType:
+        car.carType || "중형",
+      description:
+        car.description || "",
+    });
+
+    const savedImageUrls =
+      Array.isArray(car.imageUrls) &&
+      car.imageUrls.length > 0
+        ? car.imageUrls
+        : car.imageUrl
+          ? [car.imageUrl]
+          : [];
+
+    setImages(
+      savedImageUrls.map(
+        (imageUrl, index) => ({
+          id: `saved-${index}-${imageUrl}`,
+          name: `기존 이미지 ${index + 1}`,
+          url: imageUrl,
+          isSaved: true,
+        })
+      )
+    );
+  }, [carId]);
+
+  if (!car) {
+    return (
+      <main className="page">
+        <PageTitle
+          title="차량을 찾을 수 없습니다."
+          description="존재하지 않거나 삭제된 차량입니다."
+        >
+          <Link
+            to="/cars"
+            className="outline-btn"
+          >
+            차량 목록으로
+          </Link>
+        </PageTitle>
+      </main>
+    );
+  }
+
+  if (!isOwner) {
+    return (
+      <Navigate
+        to="/forbidden"
+        replace
+      />
+    );
+  }
 
   const handleChange = (event) => {
     const { name, value } =
@@ -179,11 +265,17 @@ function UsedCarRegisterPage() {
         await Promise.all(
           limitedFiles.map(
             async (file) => ({
-              id: `${file.name}-${file.size}-${Date.now()}-${Math.random()}`,
+              id:
+                `${file.name}-` +
+                `${file.size}-` +
+                `${Date.now()}-` +
+                `${Math.random()}`,
               name: file.name,
-              url: await readImageFile(
-                file
-              ),
+              url:
+                await readImageFile(
+                  file
+                ),
+              isSaved: false,
             })
           )
         );
@@ -215,6 +307,30 @@ function UsedCarRegisterPage() {
           image.id !== imageId
       )
     );
+  };
+
+  const handleSetMainImage = (
+    imageId
+  ) => {
+    setImages((prevImages) => {
+      const targetImage =
+        prevImages.find(
+          (image) =>
+            image.id === imageId
+        );
+
+      if (!targetImage) {
+        return prevImages;
+      }
+
+      return [
+        targetImage,
+        ...prevImages.filter(
+          (image) =>
+            image.id !== imageId
+        ),
+      ];
+    });
   };
 
   const validateForm = () => {
@@ -280,111 +396,66 @@ function UsedCarRegisterPage() {
       return;
     }
 
-    if (!loginUser) {
-      navigate("/login", {
-        state: {
-          from: "/cars/register",
-        },
-      });
-
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      let sellerData = {
-        sellerId: loginUser.id,
-        sellerName: loginUser.name,
-        sellerType: loginUser.role,
-        sellerTypeName:
-          loginUser.role === "DEALER"
-            ? "회사소속 딜러"
-            : "개인판매자",
-        dealerId: null,
-        dealerName: null,
-        companyId: null,
-        companyName: null,
-      };
-
-      if (
-        loginUser.role === "DEALER"
-      ) {
-        const dealer =
-          getCompanyDealerById(
-            loginUser.id
-          );
-
-        const company =
-          getCompanyById(
-            loginUser.companyId
-          );
-
-        sellerData = {
-          ...sellerData,
-          sellerName:
-            dealer?.name ||
-            loginUser.name,
-          sellerType: "DEALER",
-          sellerTypeName:
-            "회사소속 딜러",
-          dealerId: loginUser.id,
-          dealerName:
-            dealer?.name ||
-            loginUser.name,
-          companyId:
-            loginUser.companyId,
-          companyName:
-            company?.name ||
-            "소속 회사",
-        };
-      }
-
       const imageUrls =
         images.map(
           (image) => image.url
         );
 
-      const newCar = createCar({
-        ...form,
-        title: form.title.trim(),
-        model: form.model.trim(),
-        price: Number(form.price),
-        year: Number(form.year),
-        mileage: Number(
-          form.mileage
-        ),
-        exteriorColor:
-          form.exteriorColor.trim() ||
-          "미입력",
-        interiorColor:
-          form.interiorColor.trim() ||
-          "미입력",
-        description:
-          form.description.trim(),
-        imageUrls,
-        imageUrl: imageUrls[0],
-        ...sellerData,
-      });
+      const updatedCar = updateCar(
+        car.id,
+        {
+          ...form,
+          title: form.title.trim(),
+          model: form.model.trim(),
+          price: Number(form.price),
+          year: Number(form.year),
+          mileage: Number(
+            form.mileage
+          ),
+          exteriorColor:
+            form.exteriorColor.trim() ||
+            "미입력",
+          interiorColor:
+            form.interiorColor.trim() ||
+            "미입력",
+          description:
+            form.description.trim(),
+          imageUrls,
+          imageUrl: imageUrls[0],
+        }
+      );
+
+      if (!updatedCar) {
+        setErrorMessage(
+          "차량 정보 수정에 실패했습니다."
+        );
+
+        setIsSubmitting(false);
+
+        return;
+      }
 
       navigate(
-        `/cars/${newCar.id}`,
+        `/cars/${updatedCar.id}`,
         {
           replace: true,
           state: {
             message:
-              "차량이 등록되었습니다.",
+              "차량 정보가 수정되었습니다.",
           },
         }
       );
     } catch (error) {
       console.error(
-        "차량 등록 오류:",
+        "차량 수정 오류:",
         error
       );
 
       setErrorMessage(
-        "차량 등록 중 오류가 발생했습니다."
+        "차량 수정 중 오류가 발생했습니다."
       );
 
       setIsSubmitting(false);
@@ -394,9 +465,16 @@ function UsedCarRegisterPage() {
   return (
     <main className="page">
       <PageTitle
-        title="차량 판매 등록"
-        description="판매할 차량 정보를 입력해주세요."
-      />
+        title="차량 정보 수정"
+        description="등록한 차량의 정보를 수정합니다."
+      >
+        <Link
+          to={`/cars/${car.id}`}
+          className="outline-btn"
+        >
+          차량 상세로
+        </Link>
+      </PageTitle>
 
       <form
         className="register-form"
@@ -536,27 +614,35 @@ function UsedCarRegisterPage() {
               <option value="경형">
                 경형
               </option>
+
               <option value="소형">
                 소형
               </option>
+
               <option value="준중형">
                 준중형
               </option>
+
               <option value="중형">
                 중형
               </option>
+
               <option value="대형">
                 대형
               </option>
+
               <option value="SUV">
                 SUV
               </option>
+
               <option value="RV">
                 RV
               </option>
+
               <option value="승합">
                 승합
               </option>
+
               <option value="화물">
                 화물
               </option>
@@ -574,18 +660,23 @@ function UsedCarRegisterPage() {
               <option value="가솔린">
                 가솔린
               </option>
+
               <option value="디젤">
                 디젤
               </option>
+
               <option value="LPG">
                 LPG
               </option>
+
               <option value="하이브리드">
                 하이브리드
               </option>
+
               <option value="전기">
                 전기
               </option>
+
               <option value="수소">
                 수소
               </option>
@@ -605,12 +696,15 @@ function UsedCarRegisterPage() {
               <option value="오토">
                 오토
               </option>
+
               <option value="수동">
                 수동
               </option>
+
               <option value="CVT">
                 CVT
               </option>
+
               <option value="DCT">
                 DCT
               </option>
@@ -676,7 +770,7 @@ function UsedCarRegisterPage() {
                 imageInputRef.current?.click()
               }
             >
-              이미지 선택
+              이미지 추가
             </button>
 
             <input
@@ -701,18 +795,32 @@ function UsedCarRegisterPage() {
                   >
                     <img
                       src={image.url}
-                      alt={`차량 이미지 ${index + 1
-                        }`}
+                      alt={`차량 이미지 ${
+                        index + 1
+                      }`}
                     />
 
-                    {index === 0 && (
+                    {index === 0 ? (
                       <span>
                         대표 이미지
                       </span>
+                    ) : (
+                      <button
+                        type="button"
+                        className="car-main-image-btn"
+                        onClick={() =>
+                          handleSetMainImage(
+                            image.id
+                          )
+                        }
+                      >
+                        대표
+                      </button>
                     )}
 
                     <button
                       type="button"
+                      className="car-image-remove-btn"
                       onClick={() =>
                         handleRemoveImage(
                           image.id
@@ -751,8 +859,8 @@ function UsedCarRegisterPage() {
             disabled={isSubmitting}
           >
             {isSubmitting
-              ? "등록 중..."
-              : "차량 등록"}
+              ? "수정 중..."
+              : "수정 완료"}
           </button>
         </div>
       </form>
@@ -760,4 +868,4 @@ function UsedCarRegisterPage() {
   );
 }
 
-export default UsedCarRegisterPage;
+export default UsedCarEditPage;

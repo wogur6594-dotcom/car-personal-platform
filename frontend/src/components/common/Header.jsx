@@ -58,9 +58,26 @@ function Header() {
               </div>
 
               <span className="login-user-name">{loginUser.name}</span>
-              <Link className="header-text-link" to="/mypage">
-                마이페이지
-              </Link>
+              {loginUser.role === "ADMIN" && (
+                <Link className="header-text-link" to="/admin">
+                  관리자
+                </Link>
+              )}
+              {loginUser.role === "COMPANY" && (
+                <Link className="header-text-link" to="/company/dashboard">
+                  기업 관리
+                </Link>
+              )}
+              {loginUser.role === "DEALER" && (
+                <Link className="header-text-link" to="/dealer/profile">
+                  딜러 프로필
+                </Link>
+              )}
+              {loginUser.role === "MEMBER" && (
+                <Link className="header-text-link" to="/mypage">
+                  마이페이지
+                </Link>
+              )}
               <button type="button" className="logout-btn" onClick={handleLogout}>
                 로그아웃
               </button>

@@ -1,0 +1,516 @@
+.company-notice-page {
+    padding-bottom: 80px;
+}
+
+.company-notice-manage-card {
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.company-notice-filter {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 200px auto;
+    gap: 14px;
+    align-items: end;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.company-notice-search,
+.company-notice-category-filter {
+    display: grid;
+    gap: 8px;
+}
+
+.company-notice-search label,
+.company-notice-category-filter label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.company-notice-search input,
+.company-notice-category-filter select {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 11px;
+    background-color: #ffffff;
+    color: #0f172a;
+    font: inherit;
+    outline: none;
+}
+
+.company-notice-search input:focus,
+.company-notice-category-filter select:focus {
+    border-color: #1473e6;
+    box-shadow: 0 0 0 3px rgba(20, 115, 230, 0.1);
+}
+
+.company-notice-reset-btn {
+    height: 46px;
+    white-space: nowrap;
+}
+
+.company-notice-result-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 22px 0 14px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.company-notice-result-info strong {
+    color: #1473e6;
+    font-size: 16px;
+}
+
+.company-notice-table-wrap {
+    overflow-x: auto;
+}
+
+.company-notice-table {
+    width: 100%;
+    min-width: 920px;
+    border-collapse: collapse;
+}
+
+.company-notice-table th,
+.company-notice-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.company-notice-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.company-notice-table td {
+    color: #334155;
+    font-size: 14px;
+}
+
+.company-notice-title-cell {
+    min-width: 280px;
+    text-align: left !important;
+}
+
+.company-notice-title-cell a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #0f172a;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.company-notice-title-cell a:hover {
+    color: #1473e6;
+    text-decoration: underline;
+}
+
+.company-notice-category-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.company-notice-category-badge.notice {
+    background-color: #eaf3ff;
+    color: #1473e6;
+}
+
+.company-notice-category-badge.news {
+    background-color: #ecfdf3;
+    color: #15803d;
+}
+
+.company-notice-pinned-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: 7px;
+    background-color: #fff1f2;
+    color: #e11d48;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.company-notice-pin-btn,
+.company-notice-edit-btn,
+.company-notice-delete-btn {
+    height: 34px;
+    padding: 0 11px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.company-notice-pin-btn {
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #475569;
+}
+
+.company-notice-pin-btn.active {
+    border-color: #fda4af;
+    background-color: #fff1f2;
+    color: #e11d48;
+}
+
+.company-notice-edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #bfdbfe;
+    background-color: #eff6ff;
+    color: #1473e6;
+}
+
+.company-notice-delete-btn {
+    border: 1px solid #fecaca;
+    background-color: #fff7f7;
+    color: #dc2626;
+}
+
+.company-notice-pin-btn:hover,
+.company-notice-edit-btn:hover,
+.company-notice-delete-btn:hover {
+    filter: brightness(0.97);
+}
+
+.company-notice-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.company-notice-empty {
+    height: 160px;
+    color: #94a3b8 !important;
+    font-weight: 700;
+}
+
+.company-notice-mobile-list {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .company-notice-filter {
+        grid-template-columns: 1fr 180px;
+    }
+
+    .company-notice-reset-btn {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 700px) {
+    .company-notice-manage-card {
+        padding: 18px;
+    }
+
+    .company-notice-filter {
+        grid-template-columns: 1fr;
+    }
+
+    .company-notice-reset-btn {
+        grid-column: auto;
+    }
+
+    .company-notice-table-wrap {
+        display: none;
+    }
+
+    .company-notice-mobile-list {
+        display: grid;
+        gap: 14px;
+    }
+
+    .company-notice-mobile-card {
+        padding: 18px;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        background-color: #ffffff;
+    }
+
+    .company-notice-mobile-top {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 12px;
+    }
+
+    .company-notice-mobile-title {
+        display: block;
+        color: #0f172a;
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 1.5;
+        text-decoration: none;
+    }
+
+    .company-notice-mobile-meta {
+        display: flex;
+        gap: 14px;
+        margin-top: 10px;
+        color: #64748b;
+        font-size: 12px;
+    }
+
+    .company-notice-mobile-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .company-notice-mobile-empty {
+        padding: 70px 20px;
+        color: #94a3b8;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .company-notice-title-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .company-notice-title-actions {
+            align-items: stretch;
+            flex-direction: column;
+        }
+    }
+
+    .company-notice-detail-card {
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        background-color: #ffffff;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .company-notice-detail-header {
+        padding: 30px 34px 26px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .company-notice-detail-header h1 {
+        margin: 14px 0 16px;
+        color: #0f172a;
+        font-size: 27px;
+        line-height: 1.45;
+    }
+
+    .company-notice-detail-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .company-notice-detail-content {
+        min-height: 320px;
+        padding: 38px 34px;
+        color: #334155;
+        font-size: 15px;
+        line-height: 1.9;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .company-notice-detail-content p {
+        min-height: 1em;
+        margin: 0;
+    }
+
+    .company-notice-detail-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 20px 34px;
+        border-top: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+    }
+
+    .company-notice-owner-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .company-notice-delete-button {
+        height: 40px;
+        padding: 0 16px;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        background-color: #fff7f7;
+        color: #dc2626;
+        font-weight: 900;
+        cursor: pointer;
+    }
+
+    .company-notice-delete-button:hover {
+        background-color: #fee2e2;
+    }
+
+    @media (max-width: 600px) {
+
+        .company-notice-detail-header,
+        .company-notice-detail-content,
+        .company-notice-detail-footer {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .company-notice-detail-header h1 {
+            font-size: 22px;
+        }
+
+        .company-notice-detail-footer {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .company-notice-owner-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+}
+.company-notice-form-card {
+  display: grid;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.company-notice-form-row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  align-items: end;
+  gap: 20px;
+}
+
+.company-notice-form-field {
+  display: grid;
+  gap: 9px;
+}
+
+.company-notice-form-field label {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.company-notice-form-field input,
+.company-notice-form-field select,
+.company-notice-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #0f172a;
+  font: inherit;
+  outline: none;
+}
+
+.company-notice-form-field input,
+.company-notice-form-field select {
+  height: 46px;
+  padding: 0 14px;
+}
+
+.company-notice-form-field textarea {
+  min-height: 320px;
+  padding: 15px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.company-notice-form-field input:focus,
+.company-notice-form-field select:focus,
+.company-notice-form-field textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.company-notice-form-field small {
+  justify-self: end;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.company-notice-pin-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.company-notice-pin-check input {
+  width: 17px;
+  height: 17px;
+}
+
+.company-notice-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 700px) {
+  .company-notice-form-card {
+    padding: 20px;
+  }
+
+  .company-notice-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .company-notice-form-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

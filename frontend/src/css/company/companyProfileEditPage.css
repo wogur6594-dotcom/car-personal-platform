@@ -1,0 +1,139 @@
+.company-profile-edit-page {
+  padding-bottom: 80px;
+}
+
+.company-profile-edit-card {
+  display: grid;
+  gap: 28px;
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.company-profile-edit-section {
+  display: grid;
+  gap: 22px;
+}
+
+.company-profile-edit-section + .company-profile-edit-section {
+  padding-top: 28px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.company-profile-edit-heading h2 {
+  margin: 0 0 6px;
+  font-size: 21px;
+  color: #172033;
+}
+
+.company-profile-edit-heading p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.company-profile-edit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.company-profile-edit-grid label,
+.company-profile-edit-field {
+  display: grid;
+  gap: 9px;
+}
+
+.company-profile-edit-grid label > span,
+.company-profile-edit-field > span,
+.company-profile-image-preview > span {
+  font-size: 14px;
+  font-weight: 800;
+  color: #334155;
+}
+
+.company-profile-edit-full {
+  grid-column: 1 / -1;
+}
+
+.company-profile-edit-card input,
+.company-profile-edit-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #172033;
+  font: inherit;
+  outline: none;
+}
+
+.company-profile-edit-card input {
+  height: 48px;
+  padding: 0 14px;
+}
+
+.company-profile-edit-card textarea {
+  padding: 14px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.company-profile-edit-card input:focus,
+.company-profile-edit-card textarea:focus {
+  border-color: #1473e6;
+  box-shadow: 0 0 0 3px rgba(20, 115, 230, 0.1);
+}
+
+.company-profile-edit-card input:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.company-profile-edit-field small {
+  justify-self: end;
+  color: #94a3b8;
+}
+
+.company-profile-image-preview {
+  display: grid;
+  gap: 10px;
+}
+
+.company-profile-image-preview img {
+  width: 220px;
+  height: 150px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+.company-profile-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 720px) {
+  .company-profile-edit-card {
+    padding: 22px;
+  }
+
+  .company-profile-edit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .company-profile-edit-full {
+    grid-column: auto;
+  }
+
+  .company-profile-image-preview img {
+    width: 100%;
+  }
+}

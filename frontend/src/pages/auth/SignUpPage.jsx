@@ -14,6 +14,8 @@ function SignUpPage() {
     password: "",
     passwordCheck: "",
     role: "MEMBER",
+    businessNumber: "",
+    companyAddress: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,6 +31,11 @@ function SignUpPage() {
 
   const handleSignUp = (event) => {
     event.preventDefault();
+
+    if (form.role === "COMPANY" && (!form.businessNumber.trim() || !form.companyAddress.trim())) {
+      setErrorMessage("기업회원은 사업자번호와 회사 주소를 입력해주세요.");
+      return;
+    }
 
     if (!form.loginId.trim()) {
       setErrorMessage("아이디를 입력해주세요.");
@@ -70,8 +77,22 @@ function SignUpPage() {
             <select name="role" value={form.role} onChange={handleChange}>
               <option value="MEMBER">일반회원</option>
               <option value="DEALER">딜러회원</option>
+              <option value="COMPANY">기업회원</option>
             </select>
           </label>
+
+          {form.role === "COMPANY" && (
+            <>
+              <label>
+                <span>사업자번호</span>
+                <input name="businessNumber" value={form.businessNumber} onChange={handleChange} placeholder="사업자번호" />
+              </label>
+              <label>
+                <span>회사 주소</span>
+                <input name="companyAddress" value={form.companyAddress} onChange={handleChange} placeholder="회사 주소" />
+              </label>
+            </>
+          )}
 
           <label>
             <span>아이디</span>

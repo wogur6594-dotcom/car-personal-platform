@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PageTitle from "../../components/common/PageTitle";
 import { useAuth } from "../../hooks/useAuth";
 import "../../css/auth/loginPage.css";
+import { getCompanyDealers } from "../../utils/companyDealerStorage";
 
 const testAccounts = [
   {
@@ -22,10 +23,23 @@ const testAccounts = [
     password: "1234",
     token: "test-dealer-token",
     user: {
-      id: 2,
+      id: 101,
       loginId: "dealer",
-      name: "이딜러",
+      name: "오토딜러",
       role: "DEALER",
+      companyId: 10,
+    },
+  },
+  {
+    loginId: "company",
+    password: "1234",
+    token: "test-company-token",
+    user: {
+      id: 10,
+      loginId: "company",
+      name: "오토케어모터스",
+      role: "COMPANY",
+      companyId: 10,
     },
   },
   {
@@ -51,8 +65,9 @@ function LoginPage() {
     password: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState(
+    location.state?.statusMessage || ""
+  );
   const redirectPath = location.state?.from || "/";
 
   const handleChange = (event) => {
@@ -82,14 +97,48 @@ function LoginPage() {
         account.loginId === form.loginId && account.password === form.password
     );
 
-    if (!matchedAccount) {
+    const companyDealers = getCompanyDealers();
+
+    const companyDealer = companyDealers.find(
+      (dealer) =>
+        dealer.loginId === form.loginId &&
+        dealer.temporaryPassword === form.password
+    );
+
+    const matchedDealerStatus = companyDealers.find(
+      (dealer) => dealer.loginId === form.loginId
+    );
+
+    if (!matchedAccount && !companyDealer) {
       setErrorMessage("아이디 또는 비밀번호가 맞지 않습니다.");
       return;
     }
 
+    if (
+      matchedDealerStatus &&
+      matchedDealerStatus.status !== "ACTIVE"
+    ) {
+      const statusMessage =
+        matchedDealerStatus.status === "RESIGNED"
+          ? "퇴사 처리된 딜러 계정입니다."
+          : "이용 정지된 딜러 계정입니다.";
+
+      setErrorMessage(
+        `${statusMessage} 회사 관리자에게 문의해주세요.`
+      );
+
+      return;
+    }
+
     login({
-      token: matchedAccount.token,
-      user: matchedAccount.user,
+      token: matchedAccount?.token || `dealer-${companyDealer.id}-token`,
+      user: matchedAccount?.user || {
+        id: companyDealer.id,
+        loginId: companyDealer.loginId,
+        name: companyDealer.name,
+        role: "DEALER",
+        companyId: companyDealer.companyId,
+      },
     });
 
     navigate(redirectPath, { replace: true });
@@ -133,6 +182,7 @@ function LoginPage() {
           <strong>테스트 계정</strong>
           <p>일반회원: member / 1234</p>
           <p>딜러회원: dealer / 1234</p>
+          <p>기업회원: company / 1234</p>
           <p>관리자: admin / 1234</p>
         </div>
       </section>

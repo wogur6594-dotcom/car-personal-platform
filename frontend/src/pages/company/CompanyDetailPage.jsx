@@ -1,17 +1,34 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import PageTitle from "../../components/common/PageTitle";
 import CarCard from "../../components/car/CarCard";
-import { companyDummyData } from "../../data/companyDummyData";
+import { getCompanyById } from "../../utils/companyStorage";
 import { dealerDummyData } from "../../data/dealerDummyData";
 import { carDummyData } from "../../data/carDummyData";
+import {
+  COMPANY_NOTICE_CATEGORY_LABELS,
+  getCompanyNoticesByCompanyId,
+} from "../../utils/companyNoticeStorage";
 import "../../css/company/companyDetailPage.css";
 
 function CompanyDetailPage() {
   const { companyId } = useParams();
 
-  const company = companyDummyData.find(
-    (item) => item.id === Number(companyId)
+  const [company, setCompany] = useState(() =>
+    getCompanyById(companyId)
   );
+
+  useEffect(() => {
+    const handleCompanyChange = () => {
+      setCompany(getCompanyById(companyId));
+    };
+
+    window.addEventListener("companyChange", handleCompanyChange);
+
+    return () => {
+      window.removeEventListener("companyChange", handleCompanyChange);
+    };
+  }, [companyId]);
 
   const companyDealers = dealerDummyData.filter(
     (dealer) => dealer.companyId === Number(companyId)
@@ -20,6 +37,8 @@ function CompanyDetailPage() {
   const companyCars = carDummyData.filter(
     (car) => car.companyId === Number(companyId)
   );
+
+  const recentNotices = getCompanyNoticesByCompanyId(companyId).slice(0, 4);
 
   if (!company) {
     return (
@@ -100,6 +119,52 @@ function CompanyDetailPage() {
             <strong>{company.salesCount}건</strong>
           </div>
         </div>
+      </section>
+
+      <section className="company-notice-preview-section">
+        <div className="company-section-title">
+          <div>
+            <h2>최근 게시글</h2>
+            <p>회사의 공지사항과 새로운 소식을 확인할 수 있습니다.</p>
+          </div>
+
+          <Link
+            to={`/companies/${company.id}/notices`}
+            className="outline-btn"
+          >
+            게시글 전체보기
+          </Link>
+        </div>
+
+        {recentNotices.length > 0 ? (
+          <div className="company-notice-preview-list">
+            {recentNotices.map((notice) => (
+              <Link
+                key={notice.id}
+                to={`/companies/${company.id}/notices/${notice.id}`}
+                className="company-notice-preview-item"
+              >
+                <div>
+                  <span className={`company-notice-preview-badge ${notice.category.toLowerCase()}`}>
+                    {COMPANY_NOTICE_CATEGORY_LABELS[notice.category]}
+                  </span>
+                  {notice.isPinned && (
+                    <span className="company-notice-preview-pinned">중요</span>
+                  )}
+                </div>
+
+                <strong>{notice.title}</strong>
+                <time>
+                  {new Date(notice.createdAt).toLocaleDateString("ko-KR")}
+                </time>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="company-empty-box">
+            등록된 회사 게시글이 없습니다.
+          </div>
+        )}
       </section>
 
       <section className="company-dealer-section">

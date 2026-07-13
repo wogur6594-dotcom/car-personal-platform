@@ -2,7 +2,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/common/Layout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import AdminLayout from "./components/admin/AdminLayout";
+import { AUTH_ROLES } from "./utils/authRole";
 import {
+  ADMIN_ROUTES,
   NOT_FOUND_ROUTE,
   PROTECTED_ROUTES,
   PUBLIC_ROUTES,
@@ -32,6 +35,24 @@ function App() {
               }
             />
           ))}
+
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute roles={[AUTH_ROLES.ADMIN]}>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            {ADMIN_ROUTES.map((route) => (
+              <Route
+                key={route.path ?? "admin-index"}
+                index={route.index}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Route>
 
           <Route
             path={NOT_FOUND_ROUTE.path}

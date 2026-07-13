@@ -1,1 +1,168 @@
-/* 공통 register-form 사용 */
+.car-image-upload-box {
+    display: grid;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background-color: #f8fafc;
+}
+
+.car-image-upload-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.car-image-upload-header strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #0f172a;
+}
+
+.car-image-upload-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.car-image-preview-list {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill,
+            minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.car-image-preview-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid #dbe3ee;
+    border-radius: 13px;
+    background-color: #ffffff;
+}
+
+.car-image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.car-image-preview-item span {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background-color: rgba(15,
+            23,
+            42,
+            0.78);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.car-image-preview-item button {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(15,
+            23,
+            42,
+            0.75);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.car-register-error {
+    margin: 0;
+    padding: 13px 15px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    background-color: #fff1f2;
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.car-register-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.car-register-actions button {
+    min-width: 120px;
+}
+
+@media (max-width: 700px) {
+    .car-image-upload-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .car-image-preview-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .car-register-actions {
+        flex-direction: column-reverse;
+    }
+
+    .car-register-actions button {
+        width: 100%;
+    }
+}
+
+.car-image-preview-item .car-main-image-btn {
+    position: absolute;
+    right: 42px;
+    bottom: 8px;
+    width: auto;
+    height: 28px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 999px;
+    background-color: rgba(15,
+            23,
+            42,
+            0.78);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.car-image-preview-item .car-main-image-btn:hover {
+    background-color: #0f172a;
+}
+
+.car-image-preview-item .car-image-remove-btn {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(15,
+            23,
+            42,
+            0.75);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
